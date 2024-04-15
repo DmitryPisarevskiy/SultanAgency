@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SultanAgency</string>
+    <string name="iv_main_description">Главная картинка квартиры</string>
 </resources>
