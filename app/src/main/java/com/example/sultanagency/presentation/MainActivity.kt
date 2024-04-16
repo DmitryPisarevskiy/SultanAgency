@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.sultanagency.R
-import com.example.sultanagency.presentation.fragments.MainFragment
+import com.example.sultanagency.presentation.main_fragments.MainFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,8 +14,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun replaceFragment(fragment: Fragment) {
-        val fragmentManager  = supportFragmentManager
-        fragmentManager
+        supportFragmentManager
             .beginTransaction()
             .replace(R.id.fl_main, fragment)
             .commit()

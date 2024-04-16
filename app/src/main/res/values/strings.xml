@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">SultanAgency</string>
     <string name="iv_main_description">Главная картинка квартиры</string>
+    <string name="tv_main_item_adress">%s, %s-%s</string>
+    <string name="tv_main_item_price">%s тыс. руб.</string>
+    <string name="tv_main_item_room_num">комнат: %d</string>
+    <string name="tv_main_item_toilet_type">с/узел: %s</string>
 </resources>
