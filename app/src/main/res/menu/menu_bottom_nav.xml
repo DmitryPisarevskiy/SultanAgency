@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/search"
+        android:icon="@drawable/baseline_search_24"
+        android:orderInCategory="1"
+        android:title="@string/search" />
+    <item android:id="@+id/add"
+        android:icon="@drawable/baseline_add_card_24"
+        android:orderInCategory="3"
+        android:title="@string/add" />
+    <item android:id="@+id/main"
+        android:orderInCategory="4"
+        android:title="" />
+    <item android:id="@+id/favourite"
+        android:icon="@drawable/baseline_favorite_24"
+        android:orderInCategory="5"
+        android:title="@string/favourite" />
+    <item android:id="@+id/profile"
+        android:icon="@drawable/baseline_person_24"
+        android:orderInCategory="6"
+        android:title="@string/profile" />
+</menu>

@@ -5,4 +5,18 @@
     <string name="tv_main_item_price">%s тыс. руб.</string>
     <string name="tv_main_item_room_num">комнат: %d</string>
     <string name="tv_main_item_toilet_type">с/узел: %s</string>
+    <string name="tv_main_item_floor_num">этаж: %d</string>
+    <string name="tv_main_item_windows_type">окна: %s</string>
+    <string name="tv_main_item_ceiling">потолки: %sм</string>
+    <string name="tv_main_item_rooms_type">комнаты: %s</string>
+    <string name="balcony">балкон</string>
+    <string name="loggia">лоджия</string>
+    <string name="tv_main_item_square_all">Sобщ. %s м2</string>
+    <string name="tv_main_item_square_kitchen">Sкухня %s м2</string>
+    <string name="search">поиск</string>
+    <string name="add">новое об.</string>
+    <string name="main">главная</string>
+    <string name="favourite">избранное</string>
+    <string name="profile">профиль</string>
+    <string name="fab_description">Главная страница</string>
 </resources>

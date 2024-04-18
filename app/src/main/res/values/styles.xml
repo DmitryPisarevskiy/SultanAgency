@@ -2,20 +2,23 @@
 <resources>
     <style name="SmallCaption">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textColor">?attr/textFillColor</item>
     </style>
     <style name="SmallText">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textColor">?attr/textAppearanceBody1</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/gray</item>
     </style>
     <style name="SmallValuableText">
         <item name="android:textStyle">bold</item>
         <item name="textAllCaps">true</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
     <style name="MainItem">
         <item name="backgroundColor">?attr/colorPrimaryContainer</item>
+    </style>
+    <style name="bottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">16sp</item>
     </style>
 </resources>
