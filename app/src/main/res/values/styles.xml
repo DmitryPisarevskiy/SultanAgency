@@ -5,8 +5,23 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">?attr/textFillColor</item>
     </style>
+    <style name="StandartCaption">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">?attr/textFillColor</item>
+    </style>
+    <style name="StandartValuableText">
+        <item name="android:textStyle">bold</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
     <style name="SmallText">
         <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+    <style name="StandartText">
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/gray</item>
     </style>
     <style name="SmallValuableText">

@@ -19,4 +19,14 @@
     <string name="favourite">избранное</string>
     <string name="profile">профиль</string>
     <string name="fab_description">Главная страница</string>
+    <string name="tv_post_street">Улица:</string>
+    <string name="tv_post_price">Цена, тыс. руб.</string>
+    <string name="tv_post_house">Дом:</string>
+    <string name="tv_post_flat">Квартира:</string>
+    <string name="tv_post_room_num">Количество комнат:</string>
+    <string name="tv_post_toilet">Сан. узел:</string>
+    <string name="tv_post_floor">Этаж:</string>
+    <string name="tv_post_windows">Окна:</string>
+    <string name="tv_post_ceiling">Высота потолков, м:</string>
+    <string name="tv_post_rooms_type">Вид комнат:</string>
 </resources>

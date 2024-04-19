@@ -37,8 +37,8 @@
     <ImageButton
         android:padding="@dimen/standart_padding"
         android:id="@+id/fab"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:scaleType="centerInside"
         android:src="@drawable/main"
         android:background="@drawable/ripple_oval"
