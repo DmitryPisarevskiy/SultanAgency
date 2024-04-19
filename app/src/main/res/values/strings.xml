@@ -29,4 +29,6 @@
     <string name="tv_post_windows">Окна:</string>
     <string name="tv_post_ceiling">Высота потолков, м:</string>
     <string name="tv_post_rooms_type">Вид комнат:</string>
+    <string name="tv_post_square_kitchen">S кухни, м2:</string>
+    <string name="tv_post_square_all">S общая, м2:</string>
 </resources>
