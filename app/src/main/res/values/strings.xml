@@ -31,4 +31,15 @@
     <string name="tv_post_rooms_type">Вид комнат:</string>
     <string name="tv_post_square_kitchen">S кухни, м2:</string>
     <string name="tv_post_square_all">S общая, м2:</string>
+    <string name="cb_post_windows_type_to_street">на улицу</string>
+    <string name="cb_post_windows_type_to_yard">во двор</string>
+    <string name="tv_post_balcony">Выступ</string>
+    <string name="cb_post_balcony">балкон</string>
+    <string name="cb_post_loggia">лоджия</string>
+    <string name="cb_post_toilet_together">совмещенный</string>
+    <string name="cb_post_toilet_separate">раздельный</string>
+    <string name="cb_post_rooms_together">смежные</string>
+    <string name="cb_post_rooms_separate">раздельные</string>
+    <string name="tv_post_phone">Телефон для связи:</string>
+    <string name="tv_post_name">Имя:</string>
 </resources>

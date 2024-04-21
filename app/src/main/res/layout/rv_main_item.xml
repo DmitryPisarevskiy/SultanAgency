@@ -108,7 +108,7 @@
             app:layout_constraintBottom_toBottomOf="@id/ll_main_item_balcony"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ll_main_item_balcony"
-            android:background="@drawable/frame_square">
+            android:background="@drawable/frame_green">
             <TextView
                 android:id="@+id/tv_main_item_square_all"
                 style="@style/SmallText"
@@ -133,7 +133,7 @@
             app:layout_constraintTop_toBottomOf="@id/tl_main_item_info"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/ll_main_item_square"
-            android:background="@drawable/frame_balcony">
+            android:background="@drawable/frame_yellow">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

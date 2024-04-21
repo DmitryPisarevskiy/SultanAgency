@@ -1,4 +1,4 @@
-package com.example.sultanagency.presentation.main_fragments
+package com.example.sultanagency.presentation.main_fragment
 
 import android.view.LayoutInflater
 import android.view.View
@@ -16,8 +16,8 @@ import com.example.sultanagency.logic.entities.RoomsType
 import com.example.sultanagency.logic.entities.WindowsType
 import com.example.sultanagency.presentation.*
 
-class RVMainAdapter(val list: List<Publication>): RecyclerView.Adapter<RVMainAdapter.MainItemHolder>() {
-    class MainItemHolder(val itemView: View): RecyclerView.ViewHolder(itemView) {
+class RVMainAdapter(val list: List<Publication>, val postClickListener: IPostClickListener): RecyclerView.Adapter<RVMainAdapter.MainItemHolder>() {
+    inner class MainItemHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val tvAdress = itemView.findViewById<TextView>(R.id.tv_main_item_adress)
         val tvPrice = itemView.findViewById<TextView>(R.id.tv_main_item_price)
         val tvRoomNum = itemView.findViewById<TextView>(R.id.tv_main_item_room_num)
@@ -31,6 +31,11 @@ class RVMainAdapter(val list: List<Publication>): RecyclerView.Adapter<RVMainAda
         val cbBalcony = itemView.findViewById<CheckBox>(R.id.cb_main_item_balcony)
         val cbLoggia = itemView.findViewById<CheckBox>(R.id.cb_main_item_loggia)
         val ivFlat = itemView.findViewById<ImageView>(R.id.iv_main_item_flat)
+        init {
+            itemView.setOnClickListener {
+                postClickListener.onPostClickListener(list[adapterPosition])
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainItemHolder {
@@ -73,5 +78,6 @@ class RVMainAdapter(val list: List<Publication>): RecyclerView.Adapter<RVMainAda
                 4->ivFlat.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.flat5))
             }
         }
+
     }
 }

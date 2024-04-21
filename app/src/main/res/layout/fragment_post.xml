@@ -48,27 +48,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:id="@+id/tv_post_price"
-                    style="@style/StandartCaption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/small_margin"
-                    android:text="@string/tv_post_price"/>
-                <EditText
-                    android:id="@+id/et_post_price"
-                    style="@style/StandartValuableText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/small_margin"
-                    tools:text="1250"/>
-            </LinearLayout>
-        </TableRow>
-        <TableRow>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
                     android:id="@+id/tv_post_house"
                     style="@style/StandartCaption"
                     android:layout_width="wrap_content"
@@ -103,21 +82,48 @@
                     tools:text="36"/>
             </LinearLayout>
         </TableRow>
+        <TableRow>
+
+        </TableRow>
     </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_post_adress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tl_post_adress"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_post_price"
+            style="@style/StandartCaption"
+            android:textColor="@color/blue"
+            android:textAllCaps="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:text="@string/tv_post_price"/>
+        <EditText
+            android:id="@+id/et_post_price"
+            style="@style/StandartValuableText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            tools:text="1250"/>
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/fl_post_adress"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/gray"
-        app:layout_constraintTop_toBottomOf="@id/tl_post_adress"/>
+        app:layout_constraintTop_toBottomOf="@id/ll_post_adress"/>
 
     <TableLayout
         android:id="@+id/tl_post_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="*"
-        android:layout_marginTop="@dimen/big_margin"
         app:layout_constraintTop_toBottomOf="@id/fl_post_adress">
         <TableRow>
             <LinearLayout
@@ -143,25 +149,6 @@
                 android:orientation="horizontal"
                 android:layout_gravity="center_vertical">
                 <TextView
-                    android:id="@+id/tv_post_toilet"
-                    style="@style/StandartCaption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tv_post_toilet"/>
-                <Spinner
-                    android:id="@+id/s_post_toilet"
-                    style="@style/StandartText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-        </TableRow>
-        <TableRow>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center_vertical">
-                <TextView
                     android:id="@+id/tv_post_floor"
                     style="@style/StandartCaption"
                     android:layout_width="wrap_content"
@@ -174,22 +161,41 @@
                     android:layout_height="wrap_content"
                     tools:text="3"/>
             </LinearLayout>
+        </TableRow>
+        <TableRow>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center_vertical">
+                android:orientation="horizontal">
                 <TextView
-                    android:id="@+id/tv_post_windows"
+                    android:id="@+id/tv_post_square_all"
                     style="@style/StandartCaption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tv_post_windows"/>
-                <Spinner
-                    android:id="@+id/s_post_windows"
+                    android:text="@string/tv_post_square_all"/>
+                <EditText
+                    android:id="@+id/et_post_square_all"
                     style="@style/StandartText"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    tools:text="38"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_post_square_kitchen"
+                    style="@style/StandartCaption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_post_square_kitchen"/>
+                <EditText
+                    android:id="@+id/et_post_square_kitchen"
+                    style="@style/StandartText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="13"/>
             </LinearLayout>
         </TableRow>
         <TableRow>
@@ -211,23 +217,6 @@
                     android:layout_height="wrap_content"
                     tools:text="2,8"/>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center_vertical">
-                <TextView
-                    android:id="@+id/tv_post_rooms_type"
-                    style="@style/StandartCaption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tv_post_rooms_type"/>
-                <Spinner
-                    android:id="@+id/s_post_rooms_type"
-                    style="@style/StandartText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
         </TableRow>
     </TableLayout>
 
@@ -238,80 +227,177 @@
         android:background="@color/gray"
         app:layout_constraintTop_toBottomOf="@id/tl_post_info"/>
 
-    <LinearLayout
-        android:id="@+id/ll_post_square"
-        android:layout_width="wrap_content"
+    <TableLayout
+        android:id="@+id/tl_post_additional_info"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/small_padding"
-        app:layout_constraintTop_toTopOf="@id/ll_post_balcony"
-        app:layout_constraintBottom_toBottomOf="@id/ll_post_balcony"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/ll_post_balcony"
-        android:background="@drawable/frame_square">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tv_post_square_all"
-                style="@style/StandartText"
+        android:layout_marginTop="@dimen/standart_margin"
+        android:stretchColumns="*"
+        app:layout_constraintTop_toBottomOf="@id/fl_post_info">
+        <TableRow>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tv_post_square_all"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tv_post_square_kitchen"
-                style="@style/StandartText"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:padding="@dimen/small_padding"
+                android:layout_margin="@dimen/standart_margin"
+                android:background="@drawable/frame_green">
+                <TextView
+                    style="@style/StandartCaption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/tv_post_balcony"/>
+                <CheckBox
+                    android:id="@+id/cb_post_balcony"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="@string/cb_post_balcony"
+                    android:textColor="@color/gray"/>
+                <CheckBox
+                    android:id="@+id/cb_post_loggia"
+                    android:textColor="@color/gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="@string/cb_post_loggia"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tv_post_square_kitchen"/>
-        </LinearLayout>
-    </LinearLayout>
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:padding="@dimen/small_padding"
+                android:layout_margin="@dimen/standart_margin"
+                android:background="@drawable/frame_red">
+                <TextView
+                    style="@style/StandartCaption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/tv_post_windows"/>
+                <CheckBox
+                    android:id="@+id/cb_post_windows_type_to_yard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="@string/cb_post_windows_type_to_yard"
+                    android:textColor="@color/gray"/>
+                <CheckBox
+                    android:id="@+id/cb_post_windows_type_to_street"
+                    android:textColor="@color/gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="@string/cb_post_windows_type_to_street"/>
+            </LinearLayout>
+        </TableRow>
+        <TableRow>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:padding="@dimen/small_padding"
+                android:layout_margin="@dimen/standart_margin"
+                android:background="@drawable/frame_blue">
+                <TextView
+                    style="@style/StandartCaption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/tv_post_toilet"/>
+                <CheckBox
+                    android:id="@+id/cb_post_toilet_together"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="@string/cb_post_toilet_together"
+                    android:textColor="@color/gray"/>
+                <CheckBox
+                    android:id="@+id/cb_post_toilet_separate"
+                    android:textColor="@color/gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="@string/cb_post_toilet_separate"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:padding="@dimen/small_padding"
+                android:layout_margin="@dimen/standart_margin"
+                android:background="@drawable/frame_yellow">
+                <TextView
+                    style="@style/StandartCaption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/tv_post_rooms_type"/>
+                <CheckBox
+                    android:id="@+id/cb_post_rooms_together"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="@string/cb_post_rooms_together"
+                    android:textColor="@color/gray"/>
+                <CheckBox
+                    android:id="@+id/cb_post_rooms_separate"
+                    android:textColor="@color/gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="@string/cb_post_rooms_separate"/>
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_post_balcony"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/fl_post_additional_info"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray"
+        app:layout_constraintTop_toBottomOf="@id/tl_post_additional_info"/>
+
+    <TableLayout
+        android:id="@+id/tl_post_agent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/small_padding"
-        android:layout_marginTop="@dimen/big_margin"
-        app:layout_constraintTop_toBottomOf="@id/fl_post_info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ll_post_square"
-        android:background="@drawable/frame_balcony">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <CheckBox
-                android:id="@+id/cb_post_balcony"
-                android:layout_width="25dp"
-                android:layout_height="25dp"/>
-            <TextView
-                style="@style/StandartText"
+        android:stretchColumns="*"
+        app:layout_constraintTop_toBottomOf="@id/fl_post_additional_info">
+        <TableRow>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/balcony"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <CheckBox
-                android:id="@+id/cb_post_loggia"
-                android:layout_width="25dp"
-                android:layout_height="25dp"/>
-            <TextView
-                style="@style/StandartText"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_post_phone"
+                    style="@style/StandartCaption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_post_phone"/>
+                <EditText
+                    android:id="@+id/et_post_phone"
+                    style="@style/StandartText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="+79875977555"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/loggia"/>
-        </LinearLayout>
-    </LinearLayout>
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical">
+                <TextView
+                    android:id="@+id/tv_post_name"
+                    style="@style/StandartCaption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_post_name"/>
+                <EditText
+                    android:id="@+id/et_post_name"
+                    style="@style/StandartText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Альберт"/>
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
