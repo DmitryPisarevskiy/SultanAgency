@@ -1,5 +1,5 @@
 package com.example.sultanagency.logic.entities
 
 enum class BalconyType {
-    BALCONY, LOGGIA
+    BALCONY, LOGGIA, NO_BALCONY
 }

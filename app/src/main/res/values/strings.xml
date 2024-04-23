@@ -21,8 +21,8 @@
     <string name="fab_description">Главная страница</string>
     <string name="tv_post_street">Улица:</string>
     <string name="tv_post_price">Цена, тыс. руб.</string>
-    <string name="tv_post_house">Дом:</string>
-    <string name="tv_post_flat">Квартира:</string>
+    <string name="tv_post_house">д.:</string>
+    <string name="tv_post_flat">кв.:</string>
     <string name="tv_post_room_num">Количество комнат:</string>
     <string name="tv_post_toilet">Сан. узел:</string>
     <string name="tv_post_floor">Этаж:</string>
@@ -33,13 +33,15 @@
     <string name="tv_post_square_all">S общая, м2:</string>
     <string name="cb_post_windows_type_to_street">на улицу</string>
     <string name="cb_post_windows_type_to_yard">во двор</string>
-    <string name="tv_post_balcony">Выступ</string>
+    <string name="tv_post_balcony">Выступ:</string>
     <string name="cb_post_balcony">балкон</string>
     <string name="cb_post_loggia">лоджия</string>
     <string name="cb_post_toilet_together">совмещенный</string>
     <string name="cb_post_toilet_separate">раздельный</string>
     <string name="cb_post_rooms_together">смежные</string>
     <string name="cb_post_rooms_separate">раздельные</string>
-    <string name="tv_post_phone">Телефон для связи:</string>
+    <string name="tv_post_phone">Телефон:</string>
     <string name="tv_post_name">Имя:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

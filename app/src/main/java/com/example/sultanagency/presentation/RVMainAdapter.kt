@@ -1,12 +1,15 @@
-package com.example.sultanagency.presentation.main_fragment
+package com.example.sultanagency.presentation
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sultanagency.R
 import com.example.sultanagency.logic.entities.BalconyType
@@ -14,7 +17,8 @@ import com.example.sultanagency.logic.entities.BathRoomType
 import com.example.sultanagency.logic.entities.Publication
 import com.example.sultanagency.logic.entities.RoomsType
 import com.example.sultanagency.logic.entities.WindowsType
-import com.example.sultanagency.presentation.*
+import com.example.sultanagency.room.AppDataBase
+import com.example.sultanagency.room.FavouriteDbEntity
 
 class RVMainAdapter(val list: List<Publication>, val postClickListener: IPostClickListener): RecyclerView.Adapter<RVMainAdapter.MainItemHolder>() {
     inner class MainItemHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -31,11 +35,14 @@ class RVMainAdapter(val list: List<Publication>, val postClickListener: IPostCli
         val cbBalcony = itemView.findViewById<CheckBox>(R.id.cb_main_item_balcony)
         val cbLoggia = itemView.findViewById<CheckBox>(R.id.cb_main_item_loggia)
         val ivFlat = itemView.findViewById<ImageView>(R.id.iv_main_item_flat)
+        val ibFavourite = itemView.findViewById<ImageButton>(R.id.ib_main_favourite)
+        val context = tvAdress.context
         init {
             itemView.setOnClickListener {
                 postClickListener.onPostClickListener(list[adapterPosition])
             }
         }
+        val db = AppDataBase.getDB(context)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainItemHolder {
@@ -48,12 +55,13 @@ class RVMainAdapter(val list: List<Publication>, val postClickListener: IPostCli
         return list.size
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: MainItemHolder, position: Int) {
         val flat = list[position]
         val context = holder.tvAdress.context
         with (holder) {
             tvAdress.text = context.getString(R.string.tv_main_item_adress, flat.street, flat.houseNum, flat.flatNum)
-            tvPrice.text = context.getString(R.string.tv_main_item_price, formatInt(flat.cost))
+            tvPrice.text = context.getString(R.string.tv_main_item_price, formatInt(flat.price))
             tvRoomNum.text = context.getString(R.string.tv_main_item_room_num, flat.roomsNumber)
             tvToileteType.text = context.getString(R.string.tv_main_item_toilet_type,
                 if (flat.bathroom == BathRoomType.COMBINED) {"совм."} else {"разд."})
@@ -62,7 +70,7 @@ class RVMainAdapter(val list: List<Publication>, val postClickListener: IPostCli
                 if (flat.windowsType== WindowsType.TO_STREET) {"на улицу"} else {"во двор"})
             tvCeiling.text = context.getString(R.string.tv_main_item_ceiling, formatFloat(flat.ceiling))
             tvRoomType.text = context.getString(R.string.tv_main_item_rooms_type,
-                if (flat.roomsType==RoomsType.COMBINED) {"смежн."} else {"разд."})
+                if (flat.roomsType==RoomsType.COMBINED) {"смеж."} else {"разд."})
             tvSquareAll.text = context.getString(R.string.tv_main_item_square_all, formatFloat(flat.square))
             tvSquareKitchen.text = context.getString(R.string.tv_main_item_square_kitchen, formatFloat(flat.kitchenSquare))
             if (flat.balconyType == BalconyType.BALCONY) {
@@ -70,14 +78,39 @@ class RVMainAdapter(val list: List<Publication>, val postClickListener: IPostCli
             } else {
                 cbLoggia.isChecked=true
             }
-            when (position) {
-                0->ivFlat.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.flat))
-                1->ivFlat.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.flat2))
-                2->ivFlat.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.flat3))
-                3->ivFlat.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.flat4))
-                4->ivFlat.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.flat5))
+            ivFlat.setImageBitmap(flat.pictures[0])
+            ibFavourite.visibility = View.VISIBLE
+            Thread{
+                val fav = db.getPublicationDao().findPostById(flat.id)
+                if (fav!=null) {
+                    ibFavourite.background = ContextCompat.getDrawable(context, R.drawable.heart_red)
+                    flat.isFavourite = true
+                } else {
+                    ibFavourite.background = ContextCompat.getDrawable(context, R.drawable.heart_white)
+                    flat.isFavourite = false
+                }
+            }.start()
+            ibFavourite.setOnClickListener {
+                if (flat.isFavourite)  {
+                    Thread{
+                        db.getPublicationDao().deletePostById(flat.id)
+                        ibFavourite.background = ContextCompat.getDrawable(context, R.drawable.heart_white)
+                        flat.isFavourite = false
+                    }.start()
+                } else {
+                    Thread{
+                        ibFavourite.background = ContextCompat.getDrawable(context, R.drawable.heart_red)
+                        val newPost = FavouriteDbEntity(
+                            street = flat.street,
+                            houseNum = flat.houseNum,
+                            flatNum = flat.flatNum,
+                            id = flat.id,
+                        )
+                        db.getPublicationDao().insertPost(newPost)
+                        flat.isFavourite = true
+                    }.start()
+                }
             }
         }
-
     }
 }

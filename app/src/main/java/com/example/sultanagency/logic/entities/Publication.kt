@@ -1,14 +1,16 @@
 package com.example.sultanagency.logic.entities
 
+import android.graphics.Bitmap
 import java.time.LocalDate
 import java.util.*
 
 class Publication (
+        val pictures: MutableList<Bitmap> = mutableListOf(),
         val openDate: LocalDate,
         val street: String,
         val houseNum: String,
         val flatNum: String,
-        val cost: Int,
+        val price: Int,
         val square: Float,
         val kitchenSquare: Float,
         val roomsNumber: Int,
@@ -22,8 +24,9 @@ class Publication (
         var sellerName: String? = null,
         var agentPhone: String? = null,
         var agentName: String? = null,
-    ){
-
+        var isFavourite: Boolean = false,
+    ) {
         var closeDate: Date? = null
         var isClosed = false
+        val id = "$street ${houseNum}-$flatNum"
 }

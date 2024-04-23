@@ -1,4 +1,4 @@
-package com.example.sultanagency.presentation.main_fragment
+package com.example.sultanagency.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,14 +8,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sultanagency.R
-import com.example.sultanagency.logic.entities.DataExample
-import com.example.sultanagency.presentation.IPostClickListener
+import com.example.sultanagency.data.DataExample
 
 class MainFragment(val postClickListener: IPostClickListener) : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
