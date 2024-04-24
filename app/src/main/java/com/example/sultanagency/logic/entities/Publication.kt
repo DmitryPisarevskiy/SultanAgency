@@ -29,5 +29,5 @@ class Publication (
         var closeDate: Date? = null,
         var isClosed: Boolean = false,
     ) {
-        val id = "$street ${houseNum}-$flatNum"
+        val id = "$street ${houseNum}-$flatNum".replace(".", "")
 }

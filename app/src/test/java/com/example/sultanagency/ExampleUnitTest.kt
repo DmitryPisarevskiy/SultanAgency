@@ -1,6 +1,5 @@
 package com.example.sultanagency
 
-import com.example.sultanagency.data.LocalRepository
 import org.junit.Test
 
 import org.junit.Assert.*
