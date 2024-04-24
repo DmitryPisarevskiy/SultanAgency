@@ -6,6 +6,7 @@ import java.util.*
 
 class Publication (
         val pictures: MutableList<Bitmap> = mutableListOf(),
+        val picturesRef: MutableList<String> = mutableListOf(),
         val openDate: LocalDate,
         val street: String,
         val houseNum: String,
@@ -25,8 +26,8 @@ class Publication (
         var agentPhone: String? = null,
         var agentName: String? = null,
         var isFavourite: Boolean = false,
+        var closeDate: Date? = null,
+        var isClosed: Boolean = false,
     ) {
-        var closeDate: Date? = null
-        var isClosed = false
         val id = "$street ${houseNum}-$flatNum"
 }

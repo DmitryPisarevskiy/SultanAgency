@@ -7,8 +7,14 @@ import android.widget.ImageButton
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.sultanagency.R
+import com.example.sultanagency.data.DataExample
 import com.example.sultanagency.logic.entities.Publication
+import com.example.sultanagency.logic.entities.PublicationFireBase
+import com.example.sultanagency.logic.usecases.UkEntityConverter
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.Firebase
+import com.google.firebase.database.database
+import java.util.Date
 
 class MainActivity : AppCompatActivity(), IPostClickListener {
     @SuppressLint("RestrictedApi")
@@ -17,6 +23,10 @@ class MainActivity : AppCompatActivity(), IPostClickListener {
         setContentView(R.layout.activity_main)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
         val ivFAB = findViewById<ImageButton>(R.id.fab)
+
+        val database = Firebase.database
+        val myRef = database.getReference("Publications")
+        myRef.setValue(UkEntityConverter.getPublicationFireBase(DataExample.list[0]))
 
         bottomNav.selectedItemId = R.id.main
         bottomNav.menu.getItem(2).isEnabled = false

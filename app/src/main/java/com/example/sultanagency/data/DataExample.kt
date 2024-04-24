@@ -19,6 +19,7 @@ object DataExample {
     init {
         val flat1 = Publication(
             pictures = mutableListOf(BitmapFactory.decodeResource(App.get().resources, R.drawable.flat)),
+            picturesRef = mutableListOf("asdfasf", "asdfasfd"),
             openDate = LocalDate.of(2024,1,1),
             street = "ул. Калинина",
             houseNum = "54а",

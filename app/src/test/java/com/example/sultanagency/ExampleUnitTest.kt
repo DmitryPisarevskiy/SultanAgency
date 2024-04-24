@@ -18,8 +18,6 @@ class ExampleUnitTest {
 
     @Test
     fun date() {
-        val lRepo: LocalRepository = LocalRepository()
-        println(lRepo.publicationList[2].openDate.toString())
         assertEquals(4, 2 + 2)
     }
 }
