@@ -1,11 +1,16 @@
-package com.example.sultanagency.room
+package com.example.sultanagency.data.firebase
 
 import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
-import java.time.LocalDate
 
-data class FavouriteInfoTuple (
-    val id: String,
+@Entity(
+    tableName="publications",
+    indices = [Index("id")]
+)
+data class PublicationDB (
+    @PrimaryKey val id: String,
 //    val pictures: MutableList<Bitmap> = mutableListOf(),
 //    val openDate: LocalDate,
     @ColumnInfo(name = "street") val street: String,

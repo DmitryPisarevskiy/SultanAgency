@@ -7,7 +7,7 @@ import java.util.*
 class Publication (
         val pictures: MutableList<Bitmap> = mutableListOf(),
         val picturesRef: MutableList<String> = mutableListOf(),
-        val openDate: LocalDate,
+        val openDate: LocalDate? = null,
         val street: String,
         val houseNum: String,
         val flatNum: String,

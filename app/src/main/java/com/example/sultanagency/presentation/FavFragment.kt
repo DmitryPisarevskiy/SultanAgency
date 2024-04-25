@@ -10,9 +10,9 @@ import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sultanagency.R
-import com.example.sultanagency.data.DataExample
+import com.example.sultanagency.data.firebase.DataExample
 import com.example.sultanagency.logic.entities.Publication
-import com.example.sultanagency.room.AppDataBase
+import com.example.sultanagency.data.room.AppDataBase
 
 class FavFragment(val postClickListener: IPostClickListener, val liveCycleOwner: LifecycleOwner) : Fragment(), IPostClickListener {
 

@@ -1,4 +1,4 @@
-package com.example.sultanagency.data
+package com.example.sultanagency.data.firebase
 
 import android.annotation.TargetApi
 import android.graphics.BitmapFactory

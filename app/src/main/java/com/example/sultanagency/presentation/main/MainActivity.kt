@@ -1,61 +1,37 @@
-package com.example.sultanagency.presentation
+package com.example.sultanagency.presentation.main
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.sultanagency.R
-import com.example.sultanagency.data.DataExample
+import com.example.sultanagency.data.firebase.DataExample
 import com.example.sultanagency.logic.entities.Publication
-import com.example.sultanagency.logic.entities.PublicationFireBase
 import com.example.sultanagency.logic.usecases.UkEntityConverter
-import com.google.android.gms.tasks.Continuation
-import com.google.android.gms.tasks.Task
+import com.example.sultanagency.presentation.AddFragment
+import com.example.sultanagency.presentation.FavFragment
+import com.example.sultanagency.presentation.IPostClickListener
+import com.example.sultanagency.presentation.PostFragment
+import com.example.sultanagency.presentation.ProfileFragment
+import com.example.sultanagency.presentation.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import java.io.ByteArrayOutputStream
-import java.util.Date
 
 class MainActivity : AppCompatActivity(), IPostClickListener {
+
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
         val ivFAB = findViewById<ImageButton>(R.id.fab)
-
-        val database = Firebase.database
-        val storage = FirebaseStorage.getInstance()
-        val sRef = storage.reference
-        val dbRef = database.getReference("Publications")
-        DataExample.list.forEach { post->
-            val postRef = dbRef.child(post.id)
-            val picturesRef = sRef.child(post.id)
-            for (i in post.pictures.indices) {
-                val bitmap = post.pictures[i]
-                val picRef = picturesRef.child(i.toString())
-                val baos = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-                val up: UploadTask = picRef.putBytes(baos.toByteArray())
-                up.continueWithTask {task->
-                    if (task.isSuccessful) {
-                        val downloadUri = task.result
-
-                    }
-                    picRef.downloadUrl
-                }.addOnCompleteListener {task->
-                    post.picturesRef.add(task.result.toString())
-                    postRef.setValue(UkEntityConverter.getPublicationFireBase(post))
-                }
-            }
-        }
 
         bottomNav.selectedItemId = R.id.main
         bottomNav.menu.getItem(2).isEnabled = false
@@ -81,9 +57,9 @@ class MainActivity : AppCompatActivity(), IPostClickListener {
             }
             true
         }
-        replaceFragment(MainFragment(this))
+        replaceFragment(MainFragment(this,this))
         ivFAB.setOnClickListener {
-            replaceFragment(MainFragment(this))
+            replaceFragment(MainFragment(this, this))
             bottomNav.selectedItemId = R.id.main
         }
     }

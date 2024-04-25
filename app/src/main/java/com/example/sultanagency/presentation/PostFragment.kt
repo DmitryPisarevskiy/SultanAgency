@@ -10,7 +10,6 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.sultanagency.R
 import com.example.sultanagency.logic.entities.BalconyType
@@ -18,8 +17,11 @@ import com.example.sultanagency.logic.entities.BathRoomType
 import com.example.sultanagency.logic.entities.Publication
 import com.example.sultanagency.logic.entities.RoomsType
 import com.example.sultanagency.logic.entities.WindowsType
-import com.example.sultanagency.room.AppDataBase
-import com.example.sultanagency.room.FavouriteDbEntity
+import com.example.sultanagency.data.room.AppDataBase
+import com.example.sultanagency.data.firebase.PublicationDB
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PostFragment(val post: Publication) : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +60,7 @@ class PostFragment(val post: Publication) : Fragment() {
         val ibPostFavourite = view.findViewById<ImageButton>(R.id.ib_post_favourite)
         val db = AppDataBase.getDB(requireContext())
 
-        ivPicture.setImageBitmap(post.pictures[0])
+//        ivPicture.setImageBitmap(post.pictures[0])
         etPostStreet.text = post.street
         etPostHouse.setText(post.houseNum)
         etPostFlat.setText(post.flatNum)
@@ -88,7 +90,7 @@ class PostFragment(val post: Publication) : Fragment() {
             WindowsType.TO_YARD -> cbPostWindowsToStreet.isChecked = true
         }
         ibPostFavourite.visibility = View.VISIBLE
-        Thread{
+        CoroutineScope(Dispatchers.IO).launch {
             val fav = db.getPublicationDao().findPostById(post.id)
             if (fav!=null) {
                 ibPostFavourite.background = getDrawable(requireContext(), R.drawable.heart_red)
@@ -97,18 +99,18 @@ class PostFragment(val post: Publication) : Fragment() {
                 ibPostFavourite.background = getDrawable(requireContext(), R.drawable.heart_white)
                 post.isFavourite = false
             }
-        }.start()
+        }
         ibPostFavourite.setOnClickListener {
             if (post.isFavourite)  {
-                Thread{
+                CoroutineScope(Dispatchers.IO).launch {
                     db.getPublicationDao().deletePostById(post.id)
                     ibPostFavourite.background = getDrawable(requireContext(), R.drawable.heart_white)
                     post.isFavourite = false
-                }.start()
+                }
             } else {
-                Thread{
+                CoroutineScope(Dispatchers.IO).launch {
                     ibPostFavourite.background = getDrawable(requireContext(), R.drawable.heart_red)
-                    val newPost = FavouriteDbEntity(
+                    val newPost = PublicationDB(
                         street = post.street,
                         houseNum = post.houseNum,
                         flatNum = post.flatNum,

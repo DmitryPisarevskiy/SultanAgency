@@ -17,8 +17,11 @@ import com.example.sultanagency.logic.entities.BathRoomType
 import com.example.sultanagency.logic.entities.Publication
 import com.example.sultanagency.logic.entities.RoomsType
 import com.example.sultanagency.logic.entities.WindowsType
-import com.example.sultanagency.room.AppDataBase
-import com.example.sultanagency.room.FavouriteDbEntity
+import com.example.sultanagency.data.room.AppDataBase
+import com.example.sultanagency.data.firebase.PublicationDB
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RVMainAdapter(val list: List<Publication>, val postClickListener: IPostClickListener): RecyclerView.Adapter<RVMainAdapter.MainItemHolder>() {
     inner class MainItemHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -78,9 +81,9 @@ class RVMainAdapter(val list: List<Publication>, val postClickListener: IPostCli
             } else {
                 cbLoggia.isChecked=true
             }
-            ivFlat.setImageBitmap(flat.pictures[0])
+//            ivFlat.setImageBitmap(flat.pictures[0])
             ibFavourite.visibility = View.VISIBLE
-            Thread{
+            CoroutineScope(Dispatchers.IO).launch {
                 val fav = db.getPublicationDao().findPostById(flat.id)
                 if (fav!=null) {
                     ibFavourite.background = ContextCompat.getDrawable(context, R.drawable.heart_red)
@@ -89,18 +92,18 @@ class RVMainAdapter(val list: List<Publication>, val postClickListener: IPostCli
                     ibFavourite.background = ContextCompat.getDrawable(context, R.drawable.heart_white)
                     flat.isFavourite = false
                 }
-            }.start()
+            }
             ibFavourite.setOnClickListener {
                 if (flat.isFavourite)  {
-                    Thread{
+                    CoroutineScope(Dispatchers.IO).launch {
                         db.getPublicationDao().deletePostById(flat.id)
                         ibFavourite.background = ContextCompat.getDrawable(context, R.drawable.heart_white)
                         flat.isFavourite = false
-                    }.start()
+                    }
                 } else {
-                    Thread{
+                    CoroutineScope(Dispatchers.IO).launch {
                         ibFavourite.background = ContextCompat.getDrawable(context, R.drawable.heart_red)
-                        val newPost = FavouriteDbEntity(
+                        val newPost = PublicationDB(
                             street = flat.street,
                             houseNum = flat.houseNum,
                             flatNum = flat.flatNum,
@@ -108,7 +111,7 @@ class RVMainAdapter(val list: List<Publication>, val postClickListener: IPostCli
                         )
                         db.getPublicationDao().insertPost(newPost)
                         flat.isFavourite = true
-                    }.start()
+                    }
                 }
             }
         }
