@@ -1,5 +1,7 @@
-package com.example.sultanagency.presentation
+package com.example.sultanagency.presentation.post
 
+import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +11,11 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.example.sultanagency.App
 import com.example.sultanagency.R
 import com.example.sultanagency.logic.entities.BalconyType
 import com.example.sultanagency.logic.entities.BathRoomType
@@ -22,8 +27,11 @@ import com.example.sultanagency.data.firebase.PublicationDB
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
-class PostFragment(val post: Publication) : Fragment() {
+class PostFragment(val post: Publication) : Fragment(), IPostFragment {
+    lateinit var presenter: PostPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -35,8 +43,10 @@ class PostFragment(val post: Publication) : Fragment() {
         return inflater.inflate(R.layout.fragment_post, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter = PostPresenter(this, requireContext())
         val ivPicture = view.findViewById<ImageView>(R.id.iv_post_picture)
         val etPostStreet = view.findViewById<TextView>(R.id.et_post_street)
         val etPostHouse = view.findViewById<EditText>(R.id.et_post_house)
@@ -59,8 +69,14 @@ class PostFragment(val post: Publication) : Fragment() {
         val cbPostWindowsToStreet= view.findViewById<CheckBox>(R.id.cb_post_windows_type_to_street)
         val ibPostFavourite = view.findViewById<ImageButton>(R.id.ib_post_favourite)
         val db = AppDataBase.getDB(requireContext())
+        val ibPostSave = view.findViewById<ImageButton>(R.id.ib_post_save)
 
-//        ivPicture.setImageBitmap(post.pictures[0])
+        if (post.picturesRef.isNotEmpty()) {
+            Glide
+                .with(requireContext())
+                .load(post.picturesRef[0])
+                .into(ivPicture)
+        }
         etPostStreet.text = post.street
         etPostHouse.setText(post.houseNum)
         etPostFlat.setText(post.flatNum)
@@ -118,8 +134,15 @@ class PostFragment(val post: Publication) : Fragment() {
                     )
                     db.getPublicationDao().insertPost(newPost)
                     post.isFavourite = true
-                }.start()
+                }
+            }
+        }
+        ibPostSave.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                post.roomsNumber = etPostRoomNum.text.toString().toInt()
+                presenter.addRemotePost(post)
             }
         }
     }
+
 }

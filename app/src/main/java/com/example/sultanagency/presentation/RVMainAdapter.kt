@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.sultanagency.R
 import com.example.sultanagency.logic.entities.BalconyType
 import com.example.sultanagency.logic.entities.BathRoomType
@@ -81,7 +82,12 @@ class RVMainAdapter(val list: List<Publication>, val postClickListener: IPostCli
             } else {
                 cbLoggia.isChecked=true
             }
-//            ivFlat.setImageBitmap(flat.pictures[0])
+            if (flat.picturesRef.isNotEmpty()) {
+                Glide
+                    .with(context)
+                    .load(flat.picturesRef[0])
+                    .into(ivFlat)
+            }
             ibFavourite.visibility = View.VISIBLE
             CoroutineScope(Dispatchers.IO).launch {
                 val fav = db.getPublicationDao().findPostById(flat.id)

@@ -13,7 +13,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
-import kotlinx.coroutines.flow.Flow
 import java.io.ByteArrayOutputStream
 
 class FireBaseRepo: IRemoteRepo {
@@ -32,16 +31,12 @@ class FireBaseRepo: IRemoteRepo {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
             val up: UploadTask = picRef.putBytes(baos.toByteArray())
             up.continueWithTask {task->
-                if (task.isSuccessful) {
-                    val downloadUri = task.result
-
-                }
                 picRef.downloadUrl
             }.addOnCompleteListener {task->
                 post.picturesRef.add(task.result.toString())
-                postRef.setValue(UkEntityConverter.getPublicationFireBase(post))
             }
         }
+        postRef.setValue(UkEntityConverter.getPublicationFireBase(post))
     }
 
     override fun getAllPosts(): LiveData<List<Publication>> {
@@ -50,7 +45,6 @@ class FireBaseRepo: IRemoteRepo {
         dbRef.addValueEventListener(object:ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.children.forEach {child ->
-                    val i = 2
                     val post = child.getValue(PublicationFB::class.java)
                     mList.add(UkEntityConverter.getPostFromFB(post!!))
                 }

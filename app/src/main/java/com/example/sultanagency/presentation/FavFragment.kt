@@ -10,11 +10,13 @@ import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sultanagency.R
-import com.example.sultanagency.data.firebase.DataExample
 import com.example.sultanagency.logic.entities.Publication
-import com.example.sultanagency.data.room.AppDataBase
+import com.example.sultanagency.presentation.fav.FavPresenter
+import com.example.sultanagency.presentation.fav.IFavFragment
 
-class FavFragment(val postClickListener: IPostClickListener, val liveCycleOwner: LifecycleOwner) : Fragment(), IPostClickListener {
+class FavFragment(val postClickListener: IPostClickListener, val liveCycleOwner: LifecycleOwner) : Fragment(), IPostClickListener, IFavFragment {
+    lateinit var presenter: FavPresenter
+    lateinit var rvFav: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,23 +27,31 @@ class FavFragment(val postClickListener: IPostClickListener, val liveCycleOwner:
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val rvFav = view.findViewById<RecyclerView>(R.id.rv_fav)
+        rvFav = view.findViewById(R.id.rv_fav)
         rvFav.layoutManager = GridLayoutManager(requireContext(),2)
-        val db = AppDataBase.getDB(requireContext())
-        db.getPublicationDao().getAllPosts().asLiveData().observe(liveCycleOwner) {
-            val list: MutableList<Publication> = mutableListOf()
-            for (favouriteDbEntity in it) {
-                for (item in DataExample.list) {
-                    if (item.id == favouriteDbEntity.id) {
-                        list.add(item)
-                    }
-                }
-            }
-            rvFav.adapter = RVMainAdapter(list, this)
-        }
+        presenter = FavPresenter(this, requireContext())
+        showPosts()
     }
 
     override fun onPostClickListener(post: Publication) {
         postClickListener.onPostClickListener(post)
+    }
+
+    override fun showPosts() {
+        presenter.getLocalList().asLiveData().observe(liveCycleOwner) {localList ->
+            val list: MutableList<Publication> = mutableListOf()
+            presenter.getRemoteList().observe(liveCycleOwner) {remoteList ->
+                if (isAdded) {
+                    for (favouriteDbEntity in localList) {
+                        for (item in remoteList) {
+                            if (item.id == favouriteDbEntity.id) {
+                                list.add(item)
+                            }
+                        }
+                    }
+                    rvFav.adapter = RVMainAdapter(list, postClickListener)
+                }
+            }
+        }
     }
 }
