@@ -9,7 +9,7 @@ import com.example.sultanagency.logic.entities.WindowsType
 
 class UkEntityConverter {
     companion object {
-        fun getPublicationFireBase(post: Publication): PublicationFB {
+        fun getPostFB(post: Publication): PublicationFB {
             return PublicationFB(
                 picturesRef=post.picturesRef,
 //                openDate=post.openDate,

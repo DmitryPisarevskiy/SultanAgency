@@ -10,16 +10,17 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.sultanagency.R
 import com.example.sultanagency.logic.entities.Publication
-import com.example.sultanagency.presentation.AddFragment
 import com.example.sultanagency.presentation.FavFragment
+import com.example.sultanagency.presentation.IAddPostListener
 import com.example.sultanagency.presentation.IPostClickListener
 import com.example.sultanagency.presentation.post.PostFragment
 import com.example.sultanagency.presentation.ProfileFragment
 import com.example.sultanagency.presentation.SearchFragment
+import com.example.sultanagency.presentation.post.AddFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class MainActivity : AppCompatActivity(), IPostClickListener {
+class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity(), IPostClickListener {
                     setMenuColor(R.color.color_search)
                 }
                 R.id.add -> {
-                    replaceFragment(AddFragment())
+                    replaceFragment(AddFragment(this))
                     setMenuColor(R.color.color_add)
                 }
                 R.id.favourite -> {
@@ -88,5 +89,9 @@ class MainActivity : AppCompatActivity(), IPostClickListener {
             R.id.toolbar_save -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onPostIsAdded(post: Publication) {
+        replaceFragment(PostFragment(post))
     }
 }

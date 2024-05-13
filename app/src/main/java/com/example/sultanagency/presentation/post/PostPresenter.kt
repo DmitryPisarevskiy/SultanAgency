@@ -15,4 +15,13 @@ class PostPresenter(val view: IPostFragment, val context: Context) {
     suspend fun addRemotePost(post: Publication) {
         remoteRepo.insertPost(post)
     }
+
+    suspend fun deleteRemotePost(postId: String) {
+        remoteRepo.deletePostById(postId)
+    }
+
+    suspend fun deleteLocalPost(postId: String) {
+        localRepo.deletePostById(postId)
+    }
+
 }

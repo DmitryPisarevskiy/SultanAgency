@@ -36,7 +36,7 @@ class FireBaseRepo: IRemoteRepo {
                 post.picturesRef.add(task.result.toString())
             }
         }
-        postRef.setValue(UkEntityConverter.getPublicationFireBase(post))
+        postRef.setValue(UkEntityConverter.getPostFB(post))
     }
 
     override fun getAllPosts(): LiveData<List<Publication>> {

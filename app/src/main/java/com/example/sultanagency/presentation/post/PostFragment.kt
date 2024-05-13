@@ -1,6 +1,5 @@
 package com.example.sultanagency.presentation.post
 
-import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,9 +12,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.core.view.drawToBitmap
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.example.sultanagency.App
 import com.example.sultanagency.R
 import com.example.sultanagency.logic.entities.BalconyType
 import com.example.sultanagency.logic.entities.BathRoomType
@@ -27,7 +26,6 @@ import com.example.sultanagency.data.firebase.PublicationDB
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 
 class PostFragment(val post: Publication) : Fragment(), IPostFragment {
     lateinit var presenter: PostPresenter
@@ -139,8 +137,51 @@ class PostFragment(val post: Publication) : Fragment(), IPostFragment {
         }
         ibPostSave.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
-                post.roomsNumber = etPostRoomNum.text.toString().toInt()
-                presenter.addRemotePost(post)
+                val newPost = Publication(
+                    pictures = mutableListOf(ivPicture.drawToBitmap()),
+                    picturesRef = mutableListOf(),
+                    street = etPostStreet.text.toString(),
+                    houseNum = etPostHouse.text.toString(),
+                    flatNum = etPostFlat.text.toString(),
+                    price = etPostPrice.text.toString().toInt(),
+                    square = etPostSquareAll.text.toString().toFloat(),
+                    kitchenSquare = etPostSquareKithen.text.toString().toFloat(),
+                    roomsNumber = etPostRoomNum.text.toString().toInt(),
+                    floorNumber = etPostFloor.text.toString().toInt(),
+                    ceiling = etPostCeiling.text.toString().toFloat(),
+                    bathroom = if (cbPostToiletSeparate.isChecked) {
+                        BathRoomType.SEPARATE
+                    } else {
+                        BathRoomType.COMBINED
+                    },
+                    windowsType = if (cbPostWindowsToStreet.isChecked) {
+                        WindowsType.TO_STREET
+                    } else {
+                        WindowsType.TO_YARD
+                    },
+                    roomsType = if (cbPostRoomsSeparate.isChecked) {
+                        RoomsType.SEPARATE
+                    } else {
+                        RoomsType.COMBINED
+                    },
+                    balconyType = if (cbPostBalcony.isChecked) {
+                        BalconyType.BALCONY
+                    } else {
+                        if (cbPostLoggia.isChecked) {
+                            BalconyType.LOGGIA
+                        } else {
+                            BalconyType.NO_BALCONY
+                        }
+                    },
+                    agentName = etPostAgentName.text.toString(),
+                    agentPhone = etPostAgentPhone.text.toString()
+                )
+                if (post.id!=newPost.id) {
+                    presenter.deleteRemotePost(post.id)
+                    presenter.addRemotePost(newPost)
+                } else {
+                    presenter.addRemotePost(post)
+                }
             }
         }
     }
