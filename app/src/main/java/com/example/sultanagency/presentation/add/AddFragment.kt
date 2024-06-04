@@ -11,10 +11,8 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.view.drawToBitmap
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
 import com.example.sultanagency.R
 import com.example.sultanagency.logic.entities.BalconyType
 import com.example.sultanagency.logic.entities.BathRoomType
@@ -22,7 +20,6 @@ import com.example.sultanagency.logic.entities.Publication
 import com.example.sultanagency.logic.entities.RoomsType
 import com.example.sultanagency.logic.entities.WindowsType
 import com.example.sultanagency.data.room.AppDataBase
-import com.example.sultanagency.data.firebase.PublicationDB
 import com.example.sultanagency.presentation.IAddPostListener
 import com.example.sultanagency.presentation.add.IAddFragment
 import kotlinx.coroutines.CoroutineScope
@@ -65,7 +62,7 @@ class AddFragment(val addPostListener: IAddPostListener) : Fragment(), IAddFragm
     }
 
     private fun createPost(): Publication? {
-        val ivPicture = requireView().findViewById<ImageView>(R.id.iv_post_picture)
+        val ivPicture = requireView().findViewById<ImageView>(R.id.vp_post_picture)
         val etPostStreet = requireView().findViewById<TextView>(R.id.et_post_street)
         val etPostHouse = requireView().findViewById<EditText>(R.id.et_post_house)
         val etPostFlat = requireView().findViewById<EditText>(R.id.et_post_flat)
