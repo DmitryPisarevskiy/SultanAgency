@@ -1,4 +1,4 @@
-package com.example.sultanagency.logic.entities
+package com.example.sultanagency.data.firebase
 
 class PublicationFB (
     val picturesRef: MutableList<String> = mutableListOf(),

@@ -1,4 +1,4 @@
-package com.example.sultanagency.data.firebase
+package com.example.sultanagency.data.room
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import com.example.sultanagency.data.firebase.FireBaseRepo
 import com.example.sultanagency.data.firebase.IRemoteRepo
-import com.example.sultanagency.data.firebase.PublicationDB
+import com.example.sultanagency.data.room.PublicationDB
 import com.example.sultanagency.data.room.AppDataBase
 import com.example.sultanagency.data.room.ILocalRepo
 import com.example.sultanagency.data.room.RoomRepo

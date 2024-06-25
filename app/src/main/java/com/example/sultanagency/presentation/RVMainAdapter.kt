@@ -19,7 +19,7 @@ import com.example.sultanagency.logic.entities.Publication
 import com.example.sultanagency.logic.entities.RoomsType
 import com.example.sultanagency.logic.entities.WindowsType
 import com.example.sultanagency.data.room.AppDataBase
-import com.example.sultanagency.data.firebase.PublicationDB
+import com.example.sultanagency.data.room.PublicationDB
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

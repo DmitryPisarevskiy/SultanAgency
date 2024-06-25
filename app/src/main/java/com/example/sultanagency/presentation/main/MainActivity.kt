@@ -31,6 +31,14 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.inflateMenu(R.menu.menu_toolbar)
         toolbar.setOnMenuItemClickListener { // Handle the menu item
+            when (it.itemId) {
+                R.id.toolbar_save -> {
+
+                }
+                R.id.toolbar_settings -> {
+
+                }
+            }
             true
         }
 

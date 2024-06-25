@@ -3,7 +3,7 @@ package com.example.sultanagency.presentation.post
 import android.content.Context
 import com.example.sultanagency.data.firebase.FireBaseRepo
 import com.example.sultanagency.data.firebase.IRemoteRepo
-import com.example.sultanagency.data.firebase.PublicationDB
+import com.example.sultanagency.data.room.PublicationDB
 import com.example.sultanagency.data.room.AppDataBase
 import com.example.sultanagency.data.room.ILocalRepo
 import com.example.sultanagency.data.room.RoomRepo

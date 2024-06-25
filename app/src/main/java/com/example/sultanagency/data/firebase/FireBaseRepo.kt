@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.sultanagency.logic.entities.Publication
-import com.example.sultanagency.logic.entities.PublicationFB
 import com.example.sultanagency.logic.usecases.UkEntityConverter
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot

@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.sultanagency.R
-import com.example.sultanagency.data.firebase.PublicationDB
+import com.example.sultanagency.data.room.PublicationDB
 import com.example.sultanagency.data.room.AppDataBase
 import com.example.sultanagency.logic.entities.BalconyType
 import com.example.sultanagency.logic.entities.BathRoomType
@@ -79,7 +79,7 @@ class PostFragment(val post: Publication) : Fragment(), IPostFragment {
 //                .into(ivPicture)
 //        }
         vpPicture.adapter = PostPageAdapter(post.picturesRef)
-        vpPicture.orientation = ViewPager2.ORIENTATION_VERTICAL
+        vpPicture.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         ciPicture.setViewPager(vpPicture)
         etPostStreet.text = post.street
         etPostHouse.setText(post.houseNum)

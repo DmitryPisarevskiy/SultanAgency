@@ -3,7 +3,7 @@ package com.example.sultanagency.logic.usecases
 import com.example.sultanagency.logic.entities.BalconyType
 import com.example.sultanagency.logic.entities.BathRoomType
 import com.example.sultanagency.logic.entities.Publication
-import com.example.sultanagency.logic.entities.PublicationFB
+import com.example.sultanagency.data.firebase.PublicationFB
 import com.example.sultanagency.logic.entities.RoomsType
 import com.example.sultanagency.logic.entities.WindowsType
 

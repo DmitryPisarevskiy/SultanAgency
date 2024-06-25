@@ -1,6 +1,5 @@
 package com.example.sultanagency.data.room
 
-import com.example.sultanagency.data.firebase.PublicationDB
 import kotlinx.coroutines.flow.Flow
 
 class RoomRepo(val dao: PublicationDAO): ILocalRepo {
