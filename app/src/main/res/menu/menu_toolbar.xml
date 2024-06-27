@@ -5,11 +5,12 @@
         android:id="@+id/toolbar_save"
         android:orderInCategory="1"
         android:title="@string/save"
-        android:icon="@drawable/baseline_save_24"/>
+        android:icon="@drawable/baseline_save_24"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/toolbar_settings"
         android:orderInCategory="2"
         android:title="@string/settings"
-        android:icon="@drawable/baseline_save_24"/>
-<!--        app:showAsAction="always"-->
+        android:icon="@drawable/baseline_save_24"
+        app:showAsAction="ifRoom"/>
 </menu>

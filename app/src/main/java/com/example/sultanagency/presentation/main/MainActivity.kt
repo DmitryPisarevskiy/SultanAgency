@@ -2,6 +2,7 @@ package com.example.sultanagency.presentation.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
@@ -29,18 +30,7 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
         val ivFAB = findViewById<ImageButton>(R.id.fab)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar.inflateMenu(R.menu.menu_toolbar)
-        toolbar.setOnMenuItemClickListener { // Handle the menu item
-            when (it.itemId) {
-                R.id.toolbar_save -> {
-
-                }
-                R.id.toolbar_settings -> {
-
-                }
-            }
-            true
-        }
+//        toolbar.inflateMenu(R.menu.menu_toolbar)
 
         setSupportActionBar(toolbar)
         bottomNav.selectedItemId = R.id.main
@@ -89,6 +79,11 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
         bottomNav.itemIconTintList = ContextCompat.getColorStateList(this, color)
         bottomNav.itemTextColor = ContextCompat.getColorStateList(this, color)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar, menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
