@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
         val ivFAB = findViewById<ImageButton>(R.id.fab)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-//        toolbar.inflateMenu(R.menu.menu_toolbar)
 
         setSupportActionBar(toolbar)
         bottomNav.selectedItemId = R.id.main
@@ -87,8 +86,7 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-        return when (id) {
+        return when (item.itemId) {
             R.id.toolbar_save -> true
             else -> super.onOptionsItemSelected(item)
         }
