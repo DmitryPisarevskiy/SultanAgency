@@ -1,5 +1,6 @@
 package com.example.sultanagency.presentation.main
 
+import android.R.color
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
@@ -8,16 +9,17 @@ import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import com.example.sultanagency.R
 import com.example.sultanagency.logic.entities.Publication
 import com.example.sultanagency.presentation.FavFragment
 import com.example.sultanagency.presentation.IAddPostListener
 import com.example.sultanagency.presentation.IPostClickListener
-import com.example.sultanagency.presentation.post.PostFragment
 import com.example.sultanagency.presentation.ProfileFragment
 import com.example.sultanagency.presentation.SearchFragment
 import com.example.sultanagency.presentation.post.AddFragment
+import com.example.sultanagency.presentation.post.PostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -30,7 +32,12 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
         val ivFAB = findViewById<ImageButton>(R.id.fab)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-
+        var drawable = toolbar.overflowIcon
+        drawable?.let {
+            drawable = DrawableCompat.wrap(it)
+            DrawableCompat.setTint(it.mutate(), resources.getColor(R.color.white))
+            toolbar.overflowIcon = it
+        }
         setSupportActionBar(toolbar)
         bottomNav.selectedItemId = R.id.main
         bottomNav.menu.getItem(2).isEnabled = false
