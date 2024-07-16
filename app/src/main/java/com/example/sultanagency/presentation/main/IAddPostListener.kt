@@ -1,4 +1,4 @@
-package com.example.sultanagency.presentation
+package com.example.sultanagency.presentation.main
 
 import com.example.sultanagency.logic.entities.Publication
 

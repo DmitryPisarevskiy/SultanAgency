@@ -192,12 +192,8 @@ class PostFragment(val post: Publication) : Fragment(), IPostFragment {
                     agentName = etPostAgentName.text.toString(),
                     agentPhone = etPostAgentPhone.text.toString()
                 )
-                if (post.id!=newPost.id) {
-                    presenter.deleteRemotePost(post.id)
-                    presenter.addRemotePost(newPost)
-                } else {
-                    presenter.addRemotePost(post)
-                }
+                presenter.deleteRemotePost(post.id)
+                presenter.addRemotePost(newPost)
             }
         }
     }

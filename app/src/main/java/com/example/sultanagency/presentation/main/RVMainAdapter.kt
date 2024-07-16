@@ -1,4 +1,4 @@
-package com.example.sultanagency.presentation
+package com.example.sultanagency.presentation.main
 
 import android.os.Build
 import android.view.LayoutInflater
@@ -20,6 +20,8 @@ import com.example.sultanagency.logic.entities.RoomsType
 import com.example.sultanagency.logic.entities.WindowsType
 import com.example.sultanagency.data.room.AppDataBase
 import com.example.sultanagency.data.room.PublicationDB
+import com.example.sultanagency.presentation.formatFloat
+import com.example.sultanagency.presentation.formatInt
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

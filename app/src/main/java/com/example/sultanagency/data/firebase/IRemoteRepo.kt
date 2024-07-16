@@ -11,4 +11,5 @@ interface IRemoteRepo {
     suspend fun deletePostById(postId: String)
 
     suspend fun findPostById(postId: String): PublicationFB?
+
 }

@@ -56,11 +56,11 @@ class FireBaseRepo: IRemoteRepo {
     }
 
     override suspend fun deletePostById(postId: String) {
-        TODO("Not yet implemented")
+        val postRef = dbRef.child(postId)
+        postRef.removeValue()
     }
 
     override suspend fun findPostById(postId: String): PublicationFB? {
         TODO("Not yet implemented")
     }
-
 }

@@ -24,4 +24,5 @@ class PostPresenter(val view: IPostFragment, val context: Context) {
         localRepo.deletePostById(postId)
     }
 
+
 }

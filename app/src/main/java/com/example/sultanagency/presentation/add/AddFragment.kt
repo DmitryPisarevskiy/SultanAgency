@@ -20,7 +20,7 @@ import com.example.sultanagency.logic.entities.Publication
 import com.example.sultanagency.logic.entities.RoomsType
 import com.example.sultanagency.logic.entities.WindowsType
 import com.example.sultanagency.data.room.AppDataBase
-import com.example.sultanagency.presentation.IAddPostListener
+import com.example.sultanagency.presentation.main.IAddPostListener
 import com.example.sultanagency.presentation.add.IAddFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

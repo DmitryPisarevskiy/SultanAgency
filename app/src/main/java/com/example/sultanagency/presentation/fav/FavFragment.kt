@@ -1,4 +1,4 @@
-package com.example.sultanagency.presentation
+package com.example.sultanagency.presentation.fav
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,10 +11,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sultanagency.R
 import com.example.sultanagency.logic.entities.Publication
-import com.example.sultanagency.presentation.fav.FavPresenter
-import com.example.sultanagency.presentation.fav.IFavFragment
+import com.example.sultanagency.presentation.main.IPostClickListener
+import com.example.sultanagency.presentation.main.RVMainAdapter
 
-class FavFragment(val postClickListener: IPostClickListener, val liveCycleOwner: LifecycleOwner) : Fragment(), IPostClickListener, IFavFragment {
+class FavFragment(val postClickListener: IPostClickListener, val liveCycleOwner: LifecycleOwner) : Fragment(),
+    IPostClickListener, IFavFragment {
     lateinit var presenter: FavPresenter
     lateinit var rvFav: RecyclerView
 

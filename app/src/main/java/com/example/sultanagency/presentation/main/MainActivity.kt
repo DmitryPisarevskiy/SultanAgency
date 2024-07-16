@@ -1,6 +1,5 @@
 package com.example.sultanagency.presentation.main
 
-import android.R.color
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
@@ -13,9 +12,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import com.example.sultanagency.R
 import com.example.sultanagency.logic.entities.Publication
-import com.example.sultanagency.presentation.FavFragment
-import com.example.sultanagency.presentation.IAddPostListener
-import com.example.sultanagency.presentation.IPostClickListener
+import com.example.sultanagency.presentation.fav.FavFragment
 import com.example.sultanagency.presentation.ProfileFragment
 import com.example.sultanagency.presentation.SearchFragment
 import com.example.sultanagency.presentation.post.AddFragment
