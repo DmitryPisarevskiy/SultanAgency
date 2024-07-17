@@ -21,6 +21,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
+    private lateinit var toolbar: Toolbar
+    private var toolsIsShown: Boolean = false
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
         setContentView(R.layout.activity_main)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
         val ivFAB = findViewById<ImageButton>(R.id.fab)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar = findViewById(R.id.toolbar)
         var drawable = toolbar.overflowIcon
         drawable?.let {
             drawable = DrawableCompat.wrap(it)
@@ -43,18 +45,22 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
                 R.id.search -> {
                     replaceFragment(SearchFragment())
                     setMenuColor(R.color.color_search)
+                    hideSaveEdit()
                 }
                 R.id.add -> {
                     replaceFragment(AddFragment(this))
                     setMenuColor(R.color.color_add)
+                    toolbar.menu.findItem(R.id.toolbar_save).isVisible = true
                 }
                 R.id.favourite -> {
                     replaceFragment(FavFragment(this, this))
                     setMenuColor(R.color.color_favourite)
+                    hideSaveEdit()
                 }
                 R.id.profile -> {
                     replaceFragment(ProfileFragment())
                     setMenuColor(R.color.color_profile)
+                    showSaveEdit()
                 }
                 else -> {}
             }
@@ -64,6 +70,7 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
         ivFAB.setOnClickListener {
             replaceFragment(MainFragment(this, this))
             bottomNav.selectedItemId = R.id.main
+            hideSaveEdit()
         }
     }
 
@@ -76,6 +83,7 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
 
     override fun onPostClickListener(post: Publication) {
         replaceFragment(PostFragment(post))
+        showSaveEdit()
     }
 
     fun setMenuColor(color: Int) {
@@ -99,4 +107,16 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
     override fun onPostIsAdded(post: Publication) {
         replaceFragment(PostFragment(post))
     }
+
+    fun showSaveEdit() {
+        toolbar.menu.findItem(R.id.toolbar_save).isVisible = true
+        toolbar.menu.findItem(R.id.toolbar_edit).isVisible = true
+
+    }
+
+    fun hideSaveEdit() {
+        toolbar.menu.findItem(R.id.toolbar_save).isVisible = false
+        toolbar.menu.findItem(R.id.toolbar_edit).isVisible = false
+    }
+
 }

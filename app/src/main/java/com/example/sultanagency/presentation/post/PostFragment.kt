@@ -45,6 +45,7 @@ class PostFragment(val post: Publication) : Fragment(), IPostFragment {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         presenter = PostPresenter(this, requireContext())
 //        val ivPicture = view.findViewById<ImageView>(R.id.vp_post_picture)
         val vpPicture = view.findViewById<ViewPager2>(R.id.vp_post_picture)
