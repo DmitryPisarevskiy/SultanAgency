@@ -23,6 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
     private lateinit var toolbar: Toolbar
     private var toolsIsShown: Boolean = false
+    private var saveListener: ISaveListener? = null
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,11 +47,14 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
                     replaceFragment(SearchFragment())
                     setMenuColor(R.color.color_search)
                     hideSaveEdit()
+                    saveListener = null
                 }
                 R.id.add -> {
-                    replaceFragment(AddFragment(this))
+                    val addFragment = AddFragment(this)
+                    replaceFragment(addFragment)
                     setMenuColor(R.color.color_add)
                     toolbar.menu.findItem(R.id.toolbar_save).isVisible = true
+                    saveListener = addFragment
                 }
                 R.id.favourite -> {
                     replaceFragment(FavFragment(this, this))
@@ -82,7 +86,9 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
     }
 
     override fun onPostClickListener(post: Publication) {
-        replaceFragment(PostFragment(post))
+        val postFragment = PostFragment(post)
+        replaceFragment(postFragment)
+        saveListener = postFragment
         showSaveEdit()
     }
 
@@ -99,13 +105,18 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.toolbar_save -> true
+            R.id.toolbar_save -> {
+                saveListener?.onSaveClick()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     override fun onPostIsAdded(post: Publication) {
-        replaceFragment(PostFragment(post))
+        val postFragment = PostFragment(post)
+        replaceFragment(postFragment)
+        saveListener = postFragment
     }
 
     fun showSaveEdit() {

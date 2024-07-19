@@ -20,5 +20,5 @@
         android:orderInCategory="3"
         android:title="@string/settings"
         android:icon="@drawable/baseline_settings_24"
-        app:showAsAction="never" />
+        app:showAsAction="collapseActionView" />
 </menu>

@@ -22,11 +22,12 @@ import com.example.sultanagency.logic.entities.WindowsType
 import com.example.sultanagency.data.room.AppDataBase
 import com.example.sultanagency.presentation.main.IAddPostListener
 import com.example.sultanagency.presentation.add.IAddFragment
+import com.example.sultanagency.presentation.main.ISaveListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AddFragment(val addPostListener: IAddPostListener) : Fragment(), IAddFragment {
+class AddFragment(val addPostListener: IAddPostListener) : Fragment(), IAddFragment, ISaveListener {
     lateinit var presenter: AddPresenter
     var post: Publication? = null
 
@@ -45,20 +46,6 @@ class AddFragment(val addPostListener: IAddPostListener) : Fragment(), IAddFragm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter = AddPresenter(this, requireContext())
-        val db = AppDataBase.getDB(requireContext())
-        val ibPostSave = view.findViewById<ImageButton>(R.id.ib_post_save)
-
-        view.findViewById<ImageButton>(R.id.ib_post_favourite).visibility = View.INVISIBLE
-
-        ibPostSave.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                val newPost = createPost()
-                newPost?.let{
-                    presenter.addRemotePost(newPost)
-                    addPostListener.onPostIsAdded(newPost)
-                }
-            }
-        }
     }
 
     private fun createPost(): Publication? {
@@ -125,6 +112,16 @@ class AddFragment(val addPostListener: IAddPostListener) : Fragment(), IAddFragm
             )
         } else {
             return null
+        }
+    }
+
+    override fun onSaveClick() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val newPost = createPost()
+            newPost?.let{
+                presenter.addRemotePost(newPost)
+                addPostListener.onPostIsAdded(newPost)
+            }
         }
     }
 }

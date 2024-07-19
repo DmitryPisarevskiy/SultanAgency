@@ -23,13 +23,36 @@ import com.example.sultanagency.logic.entities.BathRoomType
 import com.example.sultanagency.logic.entities.Publication
 import com.example.sultanagency.logic.entities.RoomsType
 import com.example.sultanagency.logic.entities.WindowsType
+import com.example.sultanagency.presentation.main.ISaveListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import me.relex.circleindicator.CircleIndicator3
 
-class PostFragment(val post: Publication) : Fragment(), IPostFragment {
+class PostFragment(val post: Publication) : Fragment(), IPostFragment, ISaveListener {
     lateinit var presenter: PostPresenter
+    lateinit var vpPicture: ViewPager2
+    lateinit var ciPicture : CircleIndicator3
+    lateinit var etPostStreet : TextView
+    lateinit var etPostHouse : EditText
+    lateinit var etPostFlat : EditText
+    lateinit var etPostCeiling : EditText
+    lateinit var etPostFloor : EditText
+    lateinit var etPostAgentName : EditText
+    lateinit var etPostAgentPhone : EditText
+    lateinit var etPostPrice : EditText
+    lateinit var etPostSquareAll : EditText
+    lateinit var etPostSquareKithen : EditText
+    lateinit var etPostRoomNum : EditText
+    lateinit var cbPostBalcony :CheckBox
+    lateinit var cbPostLoggia : CheckBox
+    lateinit var cbPostRoomsTogether : CheckBox
+    lateinit var cbPostRoomsSeparate : CheckBox
+    lateinit var cbPostToiletTogether : CheckBox
+    lateinit var cbPostToiletSeparate : CheckBox
+    lateinit var cbPostWindowsToYard : CheckBox
+    lateinit var cbPostWindowsToStreet : CheckBox
+    lateinit var ibPostFavourite : ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,30 +71,29 @@ class PostFragment(val post: Publication) : Fragment(), IPostFragment {
 
         presenter = PostPresenter(this, requireContext())
 //        val ivPicture = view.findViewById<ImageView>(R.id.vp_post_picture)
-        val vpPicture = view.findViewById<ViewPager2>(R.id.vp_post_picture)
-        val ciPicture = view.findViewById<CircleIndicator3>(R.id.ci_post_indicator)
-        val etPostStreet = view.findViewById<TextView>(R.id.et_post_street)
-        val etPostHouse = view.findViewById<EditText>(R.id.et_post_house)
-        val etPostFlat = view.findViewById<EditText>(R.id.et_post_flat)
-        val etPostCeiling = view.findViewById<EditText>(R.id.et_post_ceiling)
-        val etPostFloor = view.findViewById<EditText>(R.id.et_post_floor)
-        val etPostAgentName = view.findViewById<EditText>(R.id.et_post_name)
-        val etPostAgentPhone = view.findViewById<EditText>(R.id.et_post_phone)
-        val etPostPrice = view.findViewById<EditText>(R.id.et_post_price)
-        val etPostSquareAll = view.findViewById<EditText>(R.id.et_post_square_all)
-        val etPostSquareKithen = view.findViewById<EditText>(R.id.et_post_square_kitchen)
-        val etPostRoomNum = view.findViewById<EditText>(R.id.et_post_room_num)
-        val cbPostBalcony = view.findViewById<CheckBox>(R.id.cb_post_balcony)
-        val cbPostLoggia= view.findViewById<CheckBox>(R.id.cb_post_loggia)
-        val cbPostRoomsTogether= view.findViewById<CheckBox>(R.id.cb_post_rooms_together)
-        val cbPostRoomsSeparate= view.findViewById<CheckBox>(R.id.cb_post_rooms_separate)
-        val cbPostToiletTogether= view.findViewById<CheckBox>(R.id.cb_post_toilet_together)
-        val cbPostToiletSeparate= view.findViewById<CheckBox>(R.id.cb_post_toilet_separate)
-        val cbPostWindowsToYard= view.findViewById<CheckBox>(R.id.cb_post_windows_type_to_yard)
-        val cbPostWindowsToStreet= view.findViewById<CheckBox>(R.id.cb_post_windows_type_to_street)
-        val ibPostFavourite = view.findViewById<ImageButton>(R.id.ib_post_favourite)
+        vpPicture = view.findViewById(R.id.vp_post_picture)
+        ciPicture = view.findViewById(R.id.ci_post_indicator)
+        etPostStreet = view.findViewById(R.id.et_post_street)
+        etPostHouse = view.findViewById(R.id.et_post_house)
+        etPostFlat = view.findViewById(R.id.et_post_flat)
+        etPostCeiling = view.findViewById(R.id.et_post_ceiling)
+        etPostFloor = view.findViewById(R.id.et_post_floor)
+        etPostAgentName = view.findViewById(R.id.et_post_name)
+        etPostAgentPhone = view.findViewById(R.id.et_post_phone)
+        etPostPrice = view.findViewById(R.id.et_post_price)
+        etPostSquareAll = view.findViewById(R.id.et_post_square_all)
+        etPostSquareKithen = view.findViewById(R.id.et_post_square_kitchen)
+        etPostRoomNum = view.findViewById(R.id.et_post_room_num)
+        cbPostBalcony = view.findViewById(R.id.cb_post_balcony)
+        cbPostLoggia= view.findViewById(R.id.cb_post_loggia)
+        cbPostRoomsTogether= view.findViewById(R.id.cb_post_rooms_together)
+        cbPostRoomsSeparate= view.findViewById(R.id.cb_post_rooms_separate)
+        cbPostToiletTogether= view.findViewById(R.id.cb_post_toilet_together)
+        cbPostToiletSeparate= view.findViewById(R.id.cb_post_toilet_separate)
+        cbPostWindowsToYard= view.findViewById(R.id.cb_post_windows_type_to_yard)
+        cbPostWindowsToStreet= view.findViewById(R.id.cb_post_windows_type_to_street)
+        ibPostFavourite = view.findViewById(R.id.ib_post_favourite)
         val db = AppDataBase.getDB(requireContext())
-        val ibPostSave = view.findViewById<ImageButton>(R.id.ib_post_save)
 
 //        if (post.picturesRef.isNotEmpty()) {
 //            Glide
@@ -142,60 +164,61 @@ class PostFragment(val post: Publication) : Fragment(), IPostFragment {
                 }
             }
         }
-        ibPostSave.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                val pictures = mutableListOf<Bitmap>()
-                for (ref in post.picturesRef) {
-                    val chefBitmap: Bitmap = Glide.with(requireContext())
-                        .asBitmap()
-                        .load(ref)
-                        .submit()
-                        .get()
-                    pictures.add(chefBitmap)
-                }
+    }
 
-                val newPost = Publication(
-                    pictures = pictures,
-                    picturesRef = mutableListOf(),
-                    street = etPostStreet.text.toString(),
-                    houseNum = etPostHouse.text.toString(),
-                    flatNum = etPostFlat.text.toString(),
-                    price = etPostPrice.text.toString().toInt(),
-                    square = etPostSquareAll.text.toString().toFloat(),
-                    kitchenSquare = etPostSquareKithen.text.toString().toFloat(),
-                    roomsNumber = etPostRoomNum.text.toString().toInt(),
-                    floorNumber = etPostFloor.text.toString().toInt(),
-                    ceiling = etPostCeiling.text.toString().toFloat(),
-                    bathroom = if (cbPostToiletSeparate.isChecked) {
-                        BathRoomType.SEPARATE
-                    } else {
-                        BathRoomType.COMBINED
-                    },
-                    windowsType = if (cbPostWindowsToStreet.isChecked) {
-                        WindowsType.TO_STREET
-                    } else {
-                        WindowsType.TO_YARD
-                    },
-                    roomsType = if (cbPostRoomsSeparate.isChecked) {
-                        RoomsType.SEPARATE
-                    } else {
-                        RoomsType.COMBINED
-                    },
-                    balconyType = if (cbPostBalcony.isChecked) {
-                        BalconyType.BALCONY
-                    } else {
-                        if (cbPostLoggia.isChecked) {
-                            BalconyType.LOGGIA
-                        } else {
-                            BalconyType.NO_BALCONY
-                        }
-                    },
-                    agentName = etPostAgentName.text.toString(),
-                    agentPhone = etPostAgentPhone.text.toString()
-                )
-                presenter.deleteRemotePost(post.id)
-                presenter.addRemotePost(newPost)
+    override fun onSaveClick() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val pictures = mutableListOf<Bitmap>()
+            for (ref in post.picturesRef) {
+                val chefBitmap: Bitmap = Glide.with(requireContext())
+                    .asBitmap()
+                    .load(ref)
+                    .submit()
+                    .get()
+                pictures.add(chefBitmap)
             }
+
+            val newPost = Publication(
+                pictures = pictures,
+                picturesRef = mutableListOf(),
+                street = etPostStreet.text.toString(),
+                houseNum = etPostHouse.text.toString(),
+                flatNum = etPostFlat.text.toString(),
+                price = etPostPrice.text.toString().toInt(),
+                square = etPostSquareAll.text.toString().toFloat(),
+                kitchenSquare = etPostSquareKithen.text.toString().toFloat(),
+                roomsNumber = etPostRoomNum.text.toString().toInt(),
+                floorNumber = etPostFloor.text.toString().toInt(),
+                ceiling = etPostCeiling.text.toString().toFloat(),
+                bathroom = if (cbPostToiletSeparate.isChecked) {
+                    BathRoomType.SEPARATE
+                } else {
+                    BathRoomType.COMBINED
+                },
+                windowsType = if (cbPostWindowsToStreet.isChecked) {
+                    WindowsType.TO_STREET
+                } else {
+                    WindowsType.TO_YARD
+                },
+                roomsType = if (cbPostRoomsSeparate.isChecked) {
+                    RoomsType.SEPARATE
+                } else {
+                    RoomsType.COMBINED
+                },
+                balconyType = if (cbPostBalcony.isChecked) {
+                    BalconyType.BALCONY
+                } else {
+                    if (cbPostLoggia.isChecked) {
+                        BalconyType.LOGGIA
+                    } else {
+                        BalconyType.NO_BALCONY
+                    }
+                },
+                agentName = etPostAgentName.text.toString(),
+                agentPhone = etPostAgentPhone.text.toString()
+            )
+            presenter.deleteRemotePost(post.id)
+            presenter.addRemotePost(newPost)
         }
     }
 
