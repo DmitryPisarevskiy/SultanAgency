@@ -23,13 +23,14 @@ import com.example.sultanagency.logic.entities.BathRoomType
 import com.example.sultanagency.logic.entities.Publication
 import com.example.sultanagency.logic.entities.RoomsType
 import com.example.sultanagency.logic.entities.WindowsType
+import com.example.sultanagency.presentation.main.IEditListener
 import com.example.sultanagency.presentation.main.ISaveListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import me.relex.circleindicator.CircleIndicator3
 
-class PostFragment(val post: Publication) : Fragment(), IPostFragment, ISaveListener {
+class PostFragment(val post: Publication) : Fragment(), IPostFragment, ISaveListener, IEditListener {
     lateinit var presenter: PostPresenter
     lateinit var vpPicture: ViewPager2
     lateinit var ciPicture : CircleIndicator3
@@ -70,7 +71,6 @@ class PostFragment(val post: Publication) : Fragment(), IPostFragment, ISaveList
         super.onViewCreated(view, savedInstanceState)
 
         presenter = PostPresenter(this, requireContext())
-//        val ivPicture = view.findViewById<ImageView>(R.id.vp_post_picture)
         vpPicture = view.findViewById(R.id.vp_post_picture)
         ciPicture = view.findViewById(R.id.ci_post_indicator)
         etPostStreet = view.findViewById(R.id.et_post_street)
@@ -220,6 +220,9 @@ class PostFragment(val post: Publication) : Fragment(), IPostFragment, ISaveList
             presenter.deleteRemotePost(post.id)
             presenter.addRemotePost(newPost)
         }
+    }
+
+    override fun onEditClick() {
     }
 
 }

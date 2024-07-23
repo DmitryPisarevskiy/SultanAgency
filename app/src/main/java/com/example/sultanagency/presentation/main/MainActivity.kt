@@ -22,8 +22,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
     private lateinit var toolbar: Toolbar
-    private var toolsIsShown: Boolean = false
     private var saveListener: ISaveListener? = null
+    private var editListener: IEditListener? = null
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,25 +46,29 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
                 R.id.search -> {
                     replaceFragment(SearchFragment())
                     setMenuColor(R.color.color_search)
-                    hideSaveEdit()
+                    toolbar.menu.findItem(R.id.toolbar_edit).isVisible = false
+                    toolbar.menu.findItem(R.id.toolbar_save).isVisible = false
                     saveListener = null
                 }
                 R.id.add -> {
                     val addFragment = AddFragment(this)
                     replaceFragment(addFragment)
                     setMenuColor(R.color.color_add)
-                    toolbar.menu.findItem(R.id.toolbar_save).isVisible = true
                     saveListener = addFragment
+                    toolbar.menu.findItem(R.id.toolbar_save).isVisible = true
+                    toolbar.menu.findItem(R.id.toolbar_edit).isVisible = false
                 }
                 R.id.favourite -> {
                     replaceFragment(FavFragment(this, this))
                     setMenuColor(R.color.color_favourite)
-                    hideSaveEdit()
+                    toolbar.menu.findItem(R.id.toolbar_save).isVisible = false
+                    toolbar.menu.findItem(R.id.toolbar_edit).isVisible = false
                 }
                 R.id.profile -> {
                     replaceFragment(ProfileFragment())
                     setMenuColor(R.color.color_profile)
-                    showSaveEdit()
+                    toolbar.menu.findItem(R.id.toolbar_save).isVisible = false
+                    toolbar.menu.findItem(R.id.toolbar_edit).isVisible = false
                 }
                 else -> {}
             }
@@ -74,7 +78,8 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
         ivFAB.setOnClickListener {
             replaceFragment(MainFragment(this, this))
             bottomNav.selectedItemId = R.id.main
-            hideSaveEdit()
+            toolbar.menu.findItem(R.id.toolbar_save).isVisible = false
+            toolbar.menu.findItem(R.id.toolbar_edit).isVisible = false
         }
     }
 
@@ -89,7 +94,8 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
         val postFragment = PostFragment(post)
         replaceFragment(postFragment)
         saveListener = postFragment
-        showSaveEdit()
+        editListener = postFragment
+        toolbar.menu.findItem(R.id.toolbar_edit).isVisible = true
     }
 
     fun setMenuColor(color: Int) {
@@ -107,6 +113,13 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
         return when (item.itemId) {
             R.id.toolbar_save -> {
                 saveListener?.onSaveClick()
+                toolbar.menu.findItem(R.id.toolbar_edit).isVisible = true
+                toolbar.menu.findItem(R.id.toolbar_save).isVisible = false
+                true
+            }
+            R.id.toolbar_edit -> {
+                editListener?.onEditClick()
+                toolbar.menu.findItem(R.id.toolbar_save).isVisible = true
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -118,16 +131,4 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
         replaceFragment(postFragment)
         saveListener = postFragment
     }
-
-    fun showSaveEdit() {
-        toolbar.menu.findItem(R.id.toolbar_save).isVisible = true
-        toolbar.menu.findItem(R.id.toolbar_edit).isVisible = true
-
-    }
-
-    fun hideSaveEdit() {
-        toolbar.menu.findItem(R.id.toolbar_save).isVisible = false
-        toolbar.menu.findItem(R.id.toolbar_edit).isVisible = false
-    }
-
 }

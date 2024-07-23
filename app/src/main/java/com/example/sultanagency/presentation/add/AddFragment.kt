@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.view.drawToBitmap
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.example.sultanagency.R
 import com.example.sultanagency.logic.entities.BalconyType
 import com.example.sultanagency.logic.entities.BathRoomType
@@ -49,7 +50,7 @@ class AddFragment(val addPostListener: IAddPostListener) : Fragment(), IAddFragm
     }
 
     private fun createPost(): Publication? {
-        val ivPicture = requireView().findViewById<ImageView>(R.id.vp_post_picture)
+        val vpPicture = requireView().findViewById<ViewPager2>(R.id.vp_post_picture)
         val etPostStreet = requireView().findViewById<TextView>(R.id.et_post_street)
         val etPostHouse = requireView().findViewById<EditText>(R.id.et_post_house)
         val etPostFlat = requireView().findViewById<EditText>(R.id.et_post_flat)
