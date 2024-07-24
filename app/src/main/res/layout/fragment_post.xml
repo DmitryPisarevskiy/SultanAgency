@@ -65,6 +65,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/small_margin"
+
                             tools:text="Калинина"/>
                     </LinearLayout>
                     <LinearLayout
@@ -166,6 +167,7 @@
                             style="@style/StandartText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:inputType="number"
                             tools:text="3"/>
                     </LinearLayout>
                     <LinearLayout
@@ -184,6 +186,7 @@
                             style="@style/StandartText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:inputType="numberSigned"
                             tools:text="3"/>
                     </LinearLayout>
                 </TableRow>
@@ -203,6 +206,7 @@
                             style="@style/StandartText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
                             tools:text="38"/>
                     </LinearLayout>
                     <LinearLayout
@@ -402,6 +406,7 @@
                             style="@style/StandartText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:inputType="phone"
                             tools:text="+79875977555"/>
                     </LinearLayout>
                     <LinearLayout

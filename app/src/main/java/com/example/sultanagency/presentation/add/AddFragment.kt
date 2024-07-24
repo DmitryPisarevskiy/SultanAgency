@@ -73,7 +73,7 @@ class AddFragment(val addPostListener: IAddPostListener) : Fragment(), IAddFragm
         val ibPostFavourite = requireView().findViewById<ImageButton>(R.id.ib_post_favourite)
         if ((etPostStreet.text.toString()!="") && (etPostHouse.text.toString()!="") && (etPostFlat.text.toString()!="") ) {
             return Publication(
-                pictures = mutableListOf(ivPicture.drawToBitmap()),
+                pictures = mutableListOf(vpPicture.drawToBitmap()),
                 picturesRef = mutableListOf(),
                 street = etPostStreet.text.toString(),
                 houseNum = etPostHouse.text.toString(),
