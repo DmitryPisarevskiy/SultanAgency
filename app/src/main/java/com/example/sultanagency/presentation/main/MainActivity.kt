@@ -56,6 +56,9 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
                     setMenuColor(R.color.color_add)
                     saveListener = addFragment
                     toolbar.menu.findItem(R.id.toolbar_save).isVisible = true
+                    toolbar.menu.findItem(R.id.toolbar_save).isEnabled = false
+                    toolbar.menu.findItem(R.id.toolbar_save).icon!!.alpha = 75
+                    toolbar.menu.findItem(R.id.toolbar_save).isEnabled = false
                     toolbar.menu.findItem(R.id.toolbar_edit).isVisible = false
                 }
                 R.id.favourite -> {
@@ -96,6 +99,11 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
         saveListener = postFragment
         editListener = postFragment
         toolbar.menu.findItem(R.id.toolbar_edit).isVisible = true
+        toolbar.menu.findItem(R.id.toolbar_edit).isEnabled = true
+        toolbar.menu.findItem(R.id.toolbar_edit).icon!!.alpha = 255
+        toolbar.menu.findItem(R.id.toolbar_save).isVisible = true
+        toolbar.menu.findItem(R.id.toolbar_save).isEnabled = false
+        toolbar.menu.findItem(R.id.toolbar_save).icon!!.alpha = 75
     }
 
     fun setMenuColor(color: Int) {
@@ -130,5 +138,11 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
         val postFragment = PostFragment(post)
         replaceFragment(postFragment)
         saveListener = postFragment
+        toolbar.menu.findItem(R.id.toolbar_edit).isVisible = true
+        toolbar.menu.findItem(R.id.toolbar_edit).isEnabled = true
+        toolbar.menu.findItem(R.id.toolbar_edit).icon!!.alpha = 255
+        toolbar.menu.findItem(R.id.toolbar_save).isVisible = true
+        toolbar.menu.findItem(R.id.toolbar_save).isEnabled = false
+        toolbar.menu.findItem(R.id.toolbar_save).icon!!.alpha = 75
     }
 }
