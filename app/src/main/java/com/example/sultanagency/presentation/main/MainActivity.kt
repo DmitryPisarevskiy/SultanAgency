@@ -19,6 +19,8 @@ import com.example.sultanagency.presentation.post.AddFragment
 import com.example.sultanagency.presentation.post.PostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+const val LOW_ALPHA = 75
+const val FULL_ALPHA = 255
 
 class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
     private lateinit var toolbar: Toolbar
@@ -57,7 +59,7 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
                     saveListener = addFragment
                     toolbar.menu.findItem(R.id.toolbar_save).isVisible = true
                     toolbar.menu.findItem(R.id.toolbar_save).isEnabled = false
-                    toolbar.menu.findItem(R.id.toolbar_save).icon!!.alpha = 75
+                    toolbar.menu.findItem(R.id.toolbar_save).icon!!.alpha = LOW_ALPHA
                     toolbar.menu.findItem(R.id.toolbar_save).isEnabled = false
                     toolbar.menu.findItem(R.id.toolbar_edit).isVisible = false
                 }
@@ -121,13 +123,15 @@ class MainActivity : AppCompatActivity(), IPostClickListener, IAddPostListener {
         return when (item.itemId) {
             R.id.toolbar_save -> {
                 saveListener?.onSaveClick()
-                toolbar.menu.findItem(R.id.toolbar_edit).isVisible = true
-                toolbar.menu.findItem(R.id.toolbar_save).isVisible = false
+                toolbar.menu.findItem(R.id.toolbar_save).isEnabled = false
+                toolbar.menu.findItem(R.id.toolbar_save).icon!!.alpha = LOW_ALPHA
+                toolbar.menu.findItem(R.id.toolbar_save).icon!!.alpha = LOW_ALPHA
                 true
             }
             R.id.toolbar_edit -> {
                 editListener?.onEditClick()
-                toolbar.menu.findItem(R.id.toolbar_save).isVisible = true
+                toolbar.menu.findItem(R.id.toolbar_save).isEnabled = true
+                toolbar.menu.findItem(R.id.toolbar_save).isEnabled = false
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -1,6 +1,8 @@
 package com.example.sultanagency.presentation.post
 
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -94,7 +96,7 @@ class PostFragment(val post: Publication) : Fragment(), IPostFragment, ISaveList
         cbPostWindowsToStreet= view.findViewById(R.id.cb_post_windows_type_to_street)
         ibPostFavourite = view.findViewById(R.id.ib_post_favourite)
         val db = AppDataBase.getDB(requireContext())
-
+        etPostPrice.background.setColorFilter(resources.getColor(R.color.gray), PorterDuff.Mode.SRC_IN)
 //        if (post.picturesRef.isNotEmpty()) {
 //            Glide
 //                .with(requireContext())
@@ -219,10 +221,25 @@ class PostFragment(val post: Publication) : Fragment(), IPostFragment, ISaveList
             )
             presenter.deleteRemotePost(post.id)
             presenter.addRemotePost(newPost)
+            updateAllEditText(false)
         }
     }
 
     override fun onEditClick() {
+        updateAllEditText(true)
     }
 
+    fun updateAllEditText(isEditable: Boolean) {
+        updateEditText(isEditable, etPostPrice)
+    }
+
+    fun updateEditText(isEditable: Boolean, editText: EditText) {
+        if (isEditable) {
+            editText.background.clearColorFilter()
+            editText.isEnabled = false
+        } else {
+            editText.background.setTint(Color.TRANSPARENT)
+            editText.isEnabled = true
+        }
+    }
 }
